@@ -16,5 +16,11 @@ angular
                     })
             }
         },
+        "getReportByBeachId": {
+            value: function (beachId) {
+                let url = "http://localhost:5000/api/CurrentSurfReport/" + beachId
+                return $http.get(url)
+            }
+        }
     })
 })

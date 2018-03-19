@@ -16,10 +16,23 @@ angular
         $scope.filteredBeaches = []
         if (searchInput.length > 2) {
                 $scope.beachArray.forEach(b => {
-                if (b.beachName.includes(searchInput)) {
+                if ((b.beachName.toLowerCase()).includes((searchInput.toLowerCase()))) {
+                    $scope.filteredBeaches.push(b)
+                } else if ((b.state.toLowerCase()).includes((searchInput.toLowerCase()))) {
                     $scope.filteredBeaches.push(b)
                 }
             })
         }
     }
+
+    $scope.currentBeachReport = []
+    $scope.getBeachReport = function (beachId) {
+        $scope.currentBeachReport = []
+        SurfFactory.getReportByBeachId(beachId).then(results => {
+            console.log(results)
+            $scope.currentBeachReport.push(results.data)
+        })
+    }
+
+
 })

@@ -6,8 +6,11 @@
     </div>
 
     <div ng-repeat="beach in filteredBeaches">
-        <h2>{{beach.beachName}}</h2>
+        <h3 ng-click="getBeachReport(beach.beachId)">{{beach.beachName}}, {{beach.state}}</h3>
+    </div>
 
+    <div ng-repeat="report in currentBeachReport">
+        <h3>{{report.beachName}}</h3>
     </div>
 
     <div>
