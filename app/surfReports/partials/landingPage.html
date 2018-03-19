@@ -2,7 +2,12 @@
 
     <div>
         <h3>Search for A Beach</h3>
-        <input ng-model="beachSearchInput">
+        <input ng-keyup="filterBeachSearch(beachSearchInput)" ng-model="beachSearchInput">
+    </div>
+
+    <div ng-repeat="beach in filteredBeaches">
+        <h2>{{beach.beachName}}</h2>
+
     </div>
 
     <div>
