@@ -1,6 +1,6 @@
 angular
 .module("WaveRiderApp")
-.controller("LandingPageCtrl", function($scope, $location, SurfFactory) {
+.controller("LandingPageCtrl", function($scope, $location, SurfFactory, ReportFactory) {
 
     $scope.filteredBeaches = []
     $scope.beachArray = []
@@ -30,7 +30,10 @@ angular
         $scope.currentBeachReport = []
         SurfFactory.getReportByBeachId(beachId).then(results => {
             console.log(results)
-            $scope.currentBeachReport.push(results.data)
+
+            let report = ReportFactory.composeCurrentReport(results.data)
+            console.log(report)
+            $scope.currentBeachReport.push(report)
         })
     }
 
