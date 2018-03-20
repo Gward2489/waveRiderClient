@@ -9,6 +9,10 @@ angular.module("WaveRiderApp").config(function ($routeProvider) {
             templateUrl: "app/surfReports/partials/landingPage.html",
             controller: "LandingPageCtrl"
         })
+        .when("/autoFindSpot", {
+            templateUrl: "app/surfReports/partials/autoFindSpot.html",
+            controller: "AutoFindSpotCtrl"
+        })
         .otherwise("/landingPage")
 
 })

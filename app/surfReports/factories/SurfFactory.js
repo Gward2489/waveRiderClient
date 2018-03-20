@@ -21,6 +21,15 @@ angular
                 let url = "http://localhost:5000/api/CurrentSurfReport/" + beachId
                 return $http.get(url)
             }
+        },
+        "getReportByUserCoords": {
+            value: function (userLat, userLon) {
+                let latString = userLat.toString()
+                let lonString = userLon.toString()
+                
+                let url = "http://localhost:5000/api/CurrentSurfReport/" + latString + "/" + lonString
+                return $http.get(url)
+            }
         }
     })
 })
