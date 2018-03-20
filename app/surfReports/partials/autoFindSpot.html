@@ -10,10 +10,44 @@
     <p>
         (Enter a number 1 through 4)
     </p>
-    <input>
-    <button>Find</button>
+    <input ng-model="reportCount">
+    <button ng-click="getClosestReports(reportCount)">Find</button>
 
-    <div>
+    <div ng-repeat="report in singleClosest">
+        <h3>{{report.beachName}}</h3>
+        <p>Avg significant wave height: {{report.averageSignificantWaveHeight}}</p>
+        <p>Avg swell height: {{report.averageSwellHeight}}</p>
+        <p>Avg dominant wave period: {{report.averageDominantWavePeriod}}</p>
+        <p>Avg wave period: {{report.averageWavePeriod}}</p>
+        <p>Avg swell period: {{report.averageSwellPeriod}}</p>
+        <p>Avg steepness: {{report.averageSteepness}}</p>
+        <p>Avg wave direction: {{report.averageWaveDirection}}</p>
+        <p>Avg swell direction: {{report.averageSwellDirection}}</p>
+        <p>Avg wind wave direction: {{report.averageWindWaveDirection}}</p>
+        <p>Avg wind speed: {{report.averageWindSpeed}}</p>
+        <p>Avg gust speed: {{report.averageGustSpeed}}</p>
+        <p>Avg wind wave height: {{report.averageWindWaveHeight}}</p>
+        <p>Avg wind wave period: {{report.averageWindWavePeriod}}</p>
+        <p>Avg water surface temp: {{report.averageSeaSurfaceTemperature}}</p>
+        <p>Avg dew point temperature: {{report.averageDewPointTemp}}</p>
+    </div>
 
+    <div ng-repeat="report in multipleClosest">
+        <h3>{{report.beachName}}</h3>
+        <p>Avg significant wave height: {{report.averageSignificantWaveHeight}}</p>
+        <p>Avg swell height: {{report.averageSwellHeight}}</p>
+        <p>Avg dominant wave period: {{report.averageDominantWavePeriod}}</p>
+        <p>Avg wave period: {{report.averageWavePeriod}}</p>
+        <p>Avg swell period: {{report.averageSwellPeriod}}</p>
+        <p>Avg steepness: {{report.averageSteepness}}</p>
+        <p>Avg wave direction: {{report.averageWaveDirection}}</p>
+        <p>Avg swell direction: {{report.averageSwellDirection}}</p>
+        <p>Avg wind wave direction: {{report.averageWindWaveDirection}}</p>
+        <p>Avg wind speed: {{report.averageWindSpeed}}</p>
+        <p>Avg gust speed: {{report.averageGustSpeed}}</p>
+        <p>Avg wind wave height: {{report.averageWindWaveHeight}}</p>
+        <p>Avg wind wave period: {{report.averageWindWavePeriod}}</p>
+        <p>Avg water surface temp: {{report.averageSeaSurfaceTemperature}}</p>
+        <p>Avg dew point temperature: {{report.averageDewPointTemp}}</p>
     </div>
 </div>

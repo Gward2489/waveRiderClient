@@ -2,6 +2,8 @@ angular
 .module("WaveRiderApp")
 .controller("AutoFindSpotCtrl", function($scope, $location, SurfFactory, ReportFactory) {
 
+    $scope.singleClosest = []
+    $scope.multipleClosest = []
     $scope.userLat = 0
     $scope.userLon = 0
     let options = {
@@ -33,6 +35,28 @@ angular
           console.log("hey")
         SurfFactory.getReportByUserCoords($scope.userLat, $scope.userLon).then(results => {
             console.log(results)
+            $scope.singleClosest.push(ReportFactory.composeCurrentReport(results.data))
+        })
+      }
+
+      $scope.getClosestReports = function (reportCount) {
+        SurfFactory.getReportsByCoordsAndCount($scope.userLat, $scope.userLon, reportCount).then(results => {
+          
+          let beachIds = new Set ()
+          let closestReports = []
+          results.data.forEach(br => {
+            beachIds.add(br.beach.beachId)
+          })
+
+          beachIds.forEach(bId => {
+            closestReports.push(results.data.filter(br => br.beach.beachId === bId))
+          })
+
+          closestReports.forEach(r => {
+            $scope.multipleClosest.push(ReportFactory.composeCurrentReport(r))
+          })
+
+          console.log($scope.multipleClosest)
         })
       }
 })

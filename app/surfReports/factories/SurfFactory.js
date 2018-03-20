@@ -30,6 +30,13 @@ angular
                 let url = "http://localhost:5000/api/CurrentSurfReport/" + latString + "/" + lonString
                 return $http.get(url)
             }
+        },
+        "getReportsByCoordsAndCount": {
+            value: function (userLat, userLon, reportCount) {
+                let url = "http://localhost:5000/api/CurrentSurfReport/" + userLat + "/" + userLon +"/" + reportCount
+
+                return $http.get(url)
+            }
         }
     })
 })
