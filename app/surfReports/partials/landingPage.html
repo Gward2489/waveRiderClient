@@ -1,4 +1,9 @@
 <div>
+    
+    <div>
+        <h3>Find a beach near me!</h3>
+        <button>Find</button>
+    </div>
 
     <div>
         <h3>Search for A Beach</h3>
@@ -9,15 +14,24 @@
         <h3 ng-click="getBeachReport(beach.beachId)">{{beach.beachName}}, {{beach.state}}</h3>
     </div>
 
+    <h3>Surf Data HERE <-----(͡◉ ͜ʖ͡◉)</h3>
     <div ng-repeat="report in currentBeachReport">
         <h3>{{report.beachName}}</h3>
+        <p>Avg significant wave height: {{report.averageSignificantWaveHeight}}</p>
+        <p>Avg swell height: {{report.averageSwellHeight}}</p>
+        <p>Avg dominant wave period: {{report.averageDominantWavePeriod}}</p>
+        <p>Avg wave period: {{report.averageWavePeriod}}</p>
+        <p>Avg swell period: {{report.averageSwellPeriod}}</p>
+        <p>Avg steepness: {{report.averageSteepness}}</p>
+        <p>Avg wave direction: {{report.averageWaveDirection}}</p>
+        <p>Avg swell direction: {{report.averageSwellDirection}}</p>
+        <p>Avg wind wave direction: {{report.averageWindWaveDirection}}</p>
+        <p>Avg wind speed: {{report.averageWindSpeed}}</p>
+        <p>Avg gust speed: {{report.averageGustSpeed}}</p>
+        <p>Avg wind wave height: {{report.averageWindWaveHeight}}</p>
+        <p>Avg wind wave period: {{report.averageWindWavePeriod}}</p>
+        <p>Avg water surface temp: {{report.averageSeaSurfaceTemperature}}</p>
+        <p>Avg dew point temperature: {{report.averageDewPointTemp}}</p>
     </div>
-
-    <div>
-        <h3>Find a beach near me!</h3>
-        <button>Find</button>
-    </div>
-
-    <h3>Surf Data HERE <-----(͡◉ ͜ʖ͡◉)</h3>
 
 </div>
