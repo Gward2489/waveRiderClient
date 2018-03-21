@@ -212,16 +212,47 @@ angular
                     let currentDay = ""
                     let currentMonth = ""
 
-                    [i].report.spectralReports.forEach(s => {
+                    let makeDailySurfReportObj = function () {
+                        return Object.create (null, {
+                            "beachName": false,
+                            "day": false,
+                            "month": false,
+                            "averageWavePeriod": false,
+                            "averageDominantWavePeriod": false,
+                            "averageSignificantWaveHeight": false,
+                            "averageSteepness": false,
+                            "averageSwellDirection": false,
+                            "averageSwellHeight": false,
+                            "averageSwellPeriod": false,
+                            "averageWaveDirection": false,
+                            "averageWindWaveDirection": false,
+                            "averageWindWaveHeight": false,
+                            "averageWindWavePeriod": false,
+                            "averageDewPointTemp": false,
+                            "averageGustSpeed": false,
+                            "averageSeaSurfaceTemperature": false,
+                            "averageWindSpeed": false
+                        })
+                    }
 
-                        if (currentDay = "") {
+                    
+                    [i].report.spectralReports.forEach(s => {
+                        
+                        if (s.day !== currentDay) {
                             currentDay = s.day
                         }
 
-                        if (currentDay === s.day) {
-                            
+                        if (s.month !== currentMonth) {
+                            currentMonth = s.month                            
                         }
 
+                        if (currentDay === s.day && currentMonth === s.month) {
+                            dailyData.push(s)
+                        } else if (currentDay !== s.day && currentMonth === s.month) {
+                            for (let i = 0; dailyData.length > i; i++) {
+
+                            }
+                        }
                     })
                 }
             }
@@ -235,6 +266,40 @@ angular
                 })
 
                 return (dividend/divisor).toFixed(2)
+            }
+        },
+        "getAverageDirection": {
+            value: function (array) {
+
+                let directionString = ""
+
+                array.forEach(x => {
+                    directionString += x + ","
+                })
+                let directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
+
+                let highcount = 0
+                let direction = ""
+                directions.forEach(d => {
+                let x = (directionString.split(d).length - 1)       
+                    if (x > highcount) {
+                        highcount = x
+                        direction = d
+                    }
+                })
+                
+                return direction
+                
+            }
+        },
+        "getAverageSteepness": {
+            value: function (array) {
+
+                let steepnessString = ""
+
+                array.forEach(x => {
+                    steepnessString += x + ","
+                })
             }
         }
     })
