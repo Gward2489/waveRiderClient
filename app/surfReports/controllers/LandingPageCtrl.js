@@ -10,6 +10,8 @@ angular
             console.log(SurfFactory.beachCache)
             $scope.beachArray = SurfFactory.beachCache
         })
+    } else if (SurfFactory.beachCache !== null) {
+        $scope.beachArray = SurfFactory.beachCache
     }
 
     $scope.filterBeachSearch = function (searchInput) {
