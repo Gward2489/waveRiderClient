@@ -9,6 +9,8 @@
         <link href="./lib/node_modules/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet">
         <link href="./lib/node_modules/bootstrap/dist/css/bootstrap-reboot.min.css" rel="stylesheet">
         <link href="./lib/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./css/main.css" rel="stylesheet">
+        
         
     </head>
 
@@ -16,12 +18,13 @@
         <nav ng-cloak ng-include="'app/navBar/partials/nav.html'"></nav>
         <div ng-view></div>
         
-        <script src="./lib/node_modules/d3/build/d3.min.js"></script>        
-        <script src="./lib/node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="./lib/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>        
         <script src="./lib/node_modules/angular/angular.min.js"></script>
         <script src="./lib/node_modules/angular-route/angular-route.min.js"></script>
+        <script src="./lib/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="./lib/node_modules/d3/build/d3.min.js"></script>        
+        <script src="./lib/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>        
         <script src="./app/app.js"></script>
+        <script src="./app/directives/d3Bars.js"></script>        
         <script src="./app/surfReports/factories/SurfFactory.js"></script>
         <script src="./app/surfReports/factories/ReportFactory.js"></script>        
         <script src="./app/surfReports/controllers/LandingPageCtrl.js"></script>

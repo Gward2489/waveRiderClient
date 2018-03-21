@@ -39,5 +39,14 @@ angular
         })
     }
 
+    $scope.graphData = [4, 8, 9 ,11, 12, 15]
+    $scope.visualizeWaveData = function () {
+        $scope.graphData.push(5)
+        $scope.graphData.push(8)
+        $scope.graphData.push(11)
+        $scope.graphData.push(13)
+        $scope.graphData.push(19) 
+    }
+
 
 })

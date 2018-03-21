@@ -27,4 +27,9 @@
         <p>Avg water surface temp: {{report.averageSeaSurfaceTemperature}}</p>
         <p>Avg dew point temperature: {{report.averageDewPointTemp}}</p>
     </div>
+
+    <button ng-click="visualizeWaveData()">graph</button>
+    <div d3-Bars val="graphData" class="chart">
+
+    </div>
 </div>
