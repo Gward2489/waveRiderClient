@@ -201,7 +201,31 @@ angular
                 return currentSurfReport
             }
         },
+        "compose45DayReport": {
+            value: function (array) {
 
+                for (let i = 0; array.length > i; i++)
+                {
+                    let dailyReports = []
+                    let dailyData = []
+
+                    let currentDay = ""
+                    let currentMonth = ""
+
+                    [i].report.spectralReports.forEach(s => {
+
+                        if (currentDay = "") {
+                            currentDay = s.day
+                        }
+
+                        if (currentDay === s.day) {
+                            
+                        }
+
+                    })
+                }
+            }
+        },
         "getAverage": {
             value: function (array) {
                 let divisor = array.length

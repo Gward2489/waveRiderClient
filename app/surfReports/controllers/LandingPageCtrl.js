@@ -4,6 +4,7 @@ angular
 
     $scope.filteredBeaches = []
     $scope.beachArray = []
+    $scope.searchedSpotId = ""
     if (SurfFactory.beachCache === null) {
         SurfFactory.getAllSpots()
         .then(results => {
@@ -32,20 +33,25 @@ angular
         $scope.currentBeachReport = []
         SurfFactory.getReportByBeachId(beachId).then(results => {
             console.log(results)
-
+            $scope.searchedSpotId = beachId
             let report = ReportFactory.composeCurrentReport(results.data)
             console.log(report)
             $scope.currentBeachReport.push(report)
         })
     }
 
-    $scope.graphData = [4, 8, 9 ,11, 12, 15]
+    $scope.graphData = []
     $scope.visualizeWaveData = function () {
+        $scope.graphData = []
         $scope.graphData.push(5)
         $scope.graphData.push(8)
         $scope.graphData.push(11)
         $scope.graphData.push(13)
         $scope.graphData.push(19) 
+
+        SurfFactory.get45DayReportBySpotId($scope.searchedSpotId).then(results => {
+            console.log(results)
+        })
     }
 
 

@@ -37,6 +37,13 @@ angular
 
                 return $http.get(url)
             }
+        },
+        "get45DayReportBySpotId": {
+            value: function (spotId) {
+                let url = "http://localhost:5000/api/FullSurfReport/" + spotId
+
+                return $http.get(url)
+            }
         }
     })
 })
