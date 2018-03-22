@@ -11,6 +11,18 @@ angular
     $scope.multipleClosest = []
     $scope.userLat = 0
     $scope.userLon = 0
+
+    if (SurfFactory.beachCache === null) {
+      SurfFactory.getAllSpots()
+      .then(results => {
+          console.log(SurfFactory.beachCache)
+          $scope.beachArray = SurfFactory.beachCache
+      })
+      } else if (SurfFactory.beachCache !== null) {
+      $scope.beachArray = SurfFactory.beachCache
+  }
+
+
     let options = {
         enableHighAccuracy: true,
         timeout: 5000,
@@ -40,6 +52,7 @@ angular
           console.log("hey")
         SurfFactory.getReportByUserCoords($scope.userLat, $scope.userLon).then(results => {
             console.log(results)
+            $scope.hideReportCard = false
             $scope.singleClosest.push(ReportFactory.composeCurrentReport(results.data))
         })
       }
@@ -60,7 +73,7 @@ angular
           closestReports.forEach(r => {
             $scope.multipleClosest.push(ReportFactory.composeCurrentReport(r))
           })
-
+          $scope.hideReportCard = false          
           console.log($scope.multipleClosest)
         })
       }
@@ -92,11 +105,11 @@ angular
       $scope.visualizeWaveData = function (beachName) {
         SurfFactory.beachCache.forEach(b => {
           if (b.beachName === beachName) {
-            $scope.beachToSearch = b
+            $scope.beachToSearch = b.beachId
           }
         })
 
-        SurfFactory.get45DayReportBySpotId($scope.beachName).then(results => {
+        SurfFactory.get45DayReportBySpotId($scope.beachToSearch).then(results => {
           $scope.report = ReportFactory.compose45DayReport(results.data)
           
           $scope.graphingOptions = []
