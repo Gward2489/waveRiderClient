@@ -1,39 +1,46 @@
 <div>   
     <div>
-        <h3>Search for A Beach</h3>
-        <input ng-keyup="filterBeachSearch(beachSearchInput)" ng-model="beachSearchInput">
+        <h2><center>Welcome to Wave Rider</center></h4>
+        <h5><center>Start typing the name of a beach or state, and then click the desired surf spot to retreive live ocean data</center></h4>
+
+            <center><input ng-keyup="filterBeachSearch(beachSearchInput)" ng-model="beachSearchInput"></center>
     </div>
 
-    <div ng-repeat="beach in filteredBeaches">
-        <h3 ng-click="getBeachReport(beach.beachId)">{{beach.beachName}}, {{beach.state}}</h3>
+    <div class="beachListContainer" ng-repeat="beach in filteredBeaches">
+        <div>
+            <center><button type="button" class="btn btn-secondary" ng-click="getBeachReport(beach.beachId)">{{beach.beachName}}, {{beach.state}}</button></center>
+        </div>
     </div>
 
-    <h3>Surf Data HERE <-----(͡◉ ͜ʖ͡◉)</h3>
-    <div ng-repeat="report in currentBeachReport">
-        <h3>{{report.beachName}}</h3>
-        <p>Avg significant wave height: {{report.averageSignificantWaveHeight}}</p>
-        <p>Avg swell height: {{report.averageSwellHeight}}</p>
-        <p>Avg dominant wave period: {{report.averageDominantWavePeriod}}</p>
-        <p>Avg wave period: {{report.averageWavePeriod}}</p>
-        <p>Avg swell period: {{report.averageSwellPeriod}}</p>
-        <p>Avg steepness: {{report.averageSteepness}}</p>
-        <p>Avg wave direction: {{report.averageWaveDirection}}</p>
-        <p>Avg swell direction: {{report.averageSwellDirection}}</p>
-        <p>Avg wind wave direction: {{report.averageWindWaveDirection}}</p>
-        <p>Avg wind speed: {{report.averageWindSpeed}}</p>
-        <p>Avg gust speed: {{report.averageGustSpeed}}</p>
-        <p>Avg wind wave height: {{report.averageWindWaveHeight}}</p>
-        <p>Avg wind wave period: {{report.averageWindWavePeriod}}</p>
-        <p>Avg water surface temp: {{report.averageSeaSurfaceTemperature}}</p>
-        <p>Avg dew point temperature: {{report.averageDewPointTemp}}</p>
+    <!-- Surf Data HERE <-----(͡◉ ͜ʖ͡◉) -->
+
+    <div ng-hide ="hideReportCard" class="card" style="width: 18rem;">
+        <div class="cardRepeat" ng-repeat="report in currentBeachReport">
+            <h4 class="card-header">{{report.beachName}} <button class="btn btn-outline-secondary btn-sm" ng-click="visualizeWaveData()">View Graphs</button></h4>
+            <p ng-if="report.averageSignificantWaveHeight">Avg significant wave height: {{report.averageSignificantWaveHeight}}</p>
+            <p ng-if="report.averageSwellHeight">Avg swell height: {{report.averageSwellHeight}}</p>
+            <p ng-if="report.averageDominantWavePeriod">Avg dominant wave period: {{report.averageDominantWavePeriod}}</p>
+            <p ng-if="report.averageWavePeriod">Avg wave period: {{report.averageWavePeriod}}</p>
+            <p ng-if="report.averageSwellPeriod">Avg swell period: {{report.averageSwellPeriod}}</p>
+            <p ng-if="report.averageSteepness && report.averageSteepness !== 'N/A'">Avg steepness: {{report.averageSteepness}}</p>
+            <p ng-if="report.averageWaveDirection">Avg wave direction: {{report.averageWaveDirection}}</p>
+            <p ng-if="report.averageSwellDirection">Avg swell direction: {{report.averageSwellDirection}}</p>
+            <p ng-if="report.averageWindWaveDirection">Avg wind wave direction: {{report.averageWindWaveDirection}}</p>
+            <p ng-if="report.averageAverageWindSpeed">Avg wind speed: {{report.averageWindSpeed}}</p>
+            <p ng-if="report.averageGustSpeed">Avg gust speed: {{report.averageGustSpeed}}</p>
+            <p ng-if="report.averageWindWaveHeight">Avg wind wave height: {{report.averageWindWaveHeight}}</p>
+            <p ng-if="report.averageWindWavePeriod">Avg wind wave period: {{report.averageWindWavePeriod}}</p>
+            <p ng-if="report.averageSeaSurfaceTemperature">Avg water surface temp: {{report.averageSeaSurfaceTemperature}}</p>
+            <p ng-if="report.averageDewPointTemp">Avg dew point temperature: {{report.averageDewPointTemp}}</p>
+        </div>
     </div>
 
-    <button ng-click="visualizeWaveData()">graph</button>
-    <div d3-Bars val="graphData" val="valuesArray" class="chart">
+    <div class="btn-group" role="group" ng-hide="hideGraphs">
+        <button type="button" class="btn btn-secondary" ng-repeat="o in graphingOptions" ng-click="graphInts(o)">{{o}}</button>
+    </div>
+
+    <div ng-hide="hideGraphs" d3-Bars val="graphData" val="valuesArray" class="chart">
 
     </div>
 
-    <div ng-repeat="o in graphingOptions">
-        <button ng-click="graphInts(o)">{{o}}</button>
-    </div>
 </div>

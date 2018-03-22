@@ -10,12 +10,13 @@ angular.module('WaveRiderApp')
         link: function(scope, element, attrs) {
             
             
-            scope.$watch('val', function(newValue, oldValue) {
-
-
+            scope.$watchGroup('val', function(newValues, oldValues) {
+                
+                let d = newValues
+                
                 let x = d3.scaleLinear()
-                            .domain([0, d3.max(d3.values(scope.$parent.valuesArray))])
-                            .range([0, 420])
+                .domain([0, d3.max(d3.values(scope.$parent.valuesArray))])
+                .range([0, 420])
                 
                 let svg = d3.select("#bar-graph")
                             .selectAll('div')
@@ -24,6 +25,7 @@ angular.module('WaveRiderApp')
                             .style("width", function(d) { return x(d.average) + "px"; })
                             .text(function(d) { return d.day + "/" + d.month + " " + d.average; })
             }, true)
+
       }  
     }
 });

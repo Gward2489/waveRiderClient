@@ -7,3 +7,18 @@
     margin: 1px;
     color: white;
   }
+
+  .beachListContainer {
+    margin-top: .3em;
+    margin-bottom: .3em;
+  }
+
+  .cardRepeat * {
+    text-align: center;
+  }
+
+  .card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+}
