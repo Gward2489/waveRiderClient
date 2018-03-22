@@ -53,6 +53,18 @@ angular
             console.log(results)
             let report = ReportFactory.compose45DayReport(results.data)
             console.log(report)
+            $scope.graphingOptions = []
+            for (prop in report[0]) {
+
+                
+                if (report[0][prop] !== "NaN" && prop !== "beachName" && prop !== "day" && prop !== "month") {
+                    $scope.graphingOptions.push(prop)
+                }
+            }
+            console.log($scope.graphingOptions)
+
+
+
         })
     }
 
