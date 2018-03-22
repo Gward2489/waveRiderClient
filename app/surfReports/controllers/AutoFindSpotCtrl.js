@@ -52,6 +52,7 @@ angular
           console.log("hey")
         SurfFactory.getReportByUserCoords($scope.userLat, $scope.userLon).then(results => {
             console.log(results)
+            $scope.hideGraphs = true
             $scope.hideReportCard = false
             $scope.singleClosest.push(ReportFactory.composeCurrentReport(results.data))
         })
@@ -73,6 +74,7 @@ angular
           closestReports.forEach(r => {
             $scope.multipleClosest.push(ReportFactory.composeCurrentReport(r))
           })
+          $scope.hideGraphs = true
           $scope.hideReportCard = false          
           console.log($scope.multipleClosest)
         })

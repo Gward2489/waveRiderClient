@@ -1,4 +1,4 @@
-const app = angular.module("WaveRiderApp", ["ngRoute"] )
+const app = angular.module("WaveRiderApp", ["ngRoute", "angular-loading-bar"] )
 
 angular.module("WaveRiderApp").config(function ($routeProvider) {
     /**

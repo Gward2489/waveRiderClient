@@ -43,6 +43,7 @@ angular
             let report = ReportFactory.composeCurrentReport(results.data)
             console.log(report)
             $scope.currentBeachReport.push(report)
+            $scope.filteredBeaches = []
             $scope.hideReportCard = false;
         })
     }
