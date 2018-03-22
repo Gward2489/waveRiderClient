@@ -29,11 +29,11 @@
     </div>
 
     <button ng-click="visualizeWaveData()">graph</button>
-    <div d3-Bars val="graphData" class="chart">
+    <div d3-Bars val="graphData" val="valuesArray" class="chart">
 
     </div>
 
     <div ng-repeat="o in graphingOptions">
-        <button>{{o}}</button>
+        <button ng-click="graphInts(o)">{{o}}</button>
     </div>
 </div>

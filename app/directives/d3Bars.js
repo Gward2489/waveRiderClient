@@ -14,15 +14,15 @@ angular.module('WaveRiderApp')
 
 
                 let x = d3.scaleLinear()
-                            .domain([0, d3.max(scope.$parent.graphData)])
+                            .domain([0, d3.max(d3.values(scope.$parent.valuesArray))])
                             .range([0, 420])
                 
                 let svg = d3.select("#bar-graph")
                             .selectAll('div')
                             .data(scope.$parent.graphData)
                             .enter().append("div")
-                            .style("width", function(d) { return x(d) + "px"; })
-                            .text(function(d) { return d; })
+                            .style("width", function(d) { return x(d.average) + "px"; })
+                            .text(function(d) { return d.day + "/" + d.month + " " + d.average; })
             }, true)
       }  
     }
