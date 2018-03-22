@@ -60,4 +60,9 @@ angular
           console.log($scope.multipleClosest)
         })
       }
+
+      $scope.visualizeWaveData = function (beachName) {
+        
+
+      }
 })

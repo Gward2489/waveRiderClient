@@ -9,12 +9,16 @@ angular.module('WaveRiderApp')
         template: '<div id="bar-graph"></div>',
         link: function(scope, element, attrs) {
             
+            let x = d3.scaleLinear()
+                .domain([0, d3.max(d3.values(scope.$parent.valuesArray))])
+                .range([0, 600])
+
             let svg = d3.select("#bar-graph")
 
             scope.$watch('val', function(newValue, oldValue) {
                 svg.selectAll("*").remove();
 
-                let x = d3.scaleLinear()
+                x = d3.scaleLinear()
                 .domain([0, d3.max(d3.values(scope.$parent.valuesArray))])
                 .range([0, 600])
                 
