@@ -1,38 +1,37 @@
 <div>
-    <p>
-        Get the report for the spot closest to you
-    </p>
-    <button ng-click="getClosestReport()">Find</button>
+    <h2><center>Autofind Surf Spot</center></h4>
+    <h5><center>If your browser supports geolocation, Waverider will find the best and closest surf for you.</center></h4>
+    <center><p>(Make sure to answer "yes" when the browser asks  if the site may access your location.)</p></center>
 
-    <p>
-        Or, you may request up to four of the cloest spots at once
-    </p>
-    <p>
-        (Enter a number 1 through 4)
-    </p>
-    <input ng-model="reportCount">
-    <button ng-click="getClosestReports(reportCount)">Find</button>
+        <center><p>Click a number to choose how many surf spots retreive</p></center>
+        <center>
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+                <button ng-click="getClosestReports(x)" ng-repeat="x in spotCountOptions" class="btn btn-secondary">{{x}}</button>
+            </div>
+        </center>
 
-    <div ng-repeat="report in singleClosest">
-        <h3>{{report.beachName}}</h3>
-        <p>Avg significant wave height: {{report.averageSignificantWaveHeight}}</p>
-        <p>Avg swell height: {{report.averageSwellHeight}}</p>
-        <p>Avg dominant wave period: {{report.averageDominantWavePeriod}}</p>
-        <p>Avg wave period: {{report.averageWavePeriod}}</p>
-        <p>Avg swell period: {{report.averageSwellPeriod}}</p>
-        <p>Avg steepness: {{report.averageSteepness}}</p>
-        <p>Avg wave direction: {{report.averageWaveDirection}}</p>
-        <p>Avg swell direction: {{report.averageSwellDirection}}</p>
-        <p>Avg wind wave direction: {{report.averageWindWaveDirection}}</p>
-        <p>Avg wind speed: {{report.averageWindSpeed}}</p>
-        <p>Avg gust speed: {{report.averageGustSpeed}}</p>
-        <p>Avg wind wave height: {{report.averageWindWaveHeight}}</p>
-        <p>Avg wind wave period: {{report.averageWindWavePeriod}}</p>
-        <p>Avg water surface temp: {{report.averageSeaSurfaceTemperature}}</p>
-        <p>Avg dew point temperature: {{report.averageDewPointTemp}}</p>
+    <div ng-hide ="hideReportCard" class="card" style="width: 18rem;">
+        <div class="cardRepeat" ng-repeat="report in singleClosest">
+            <h3>{{report.beachName}}</h3>
+            <p>Avg significant wave height: {{report.averageSignificantWaveHeight}}</p>
+            <p>Avg swell height: {{report.averageSwellHeight}}</p>
+            <p>Avg dominant wave period: {{report.averageDominantWavePeriod}}</p>
+            <p>Avg wave period: {{report.averageWavePeriod}}</p>
+            <p>Avg swell period: {{report.averageSwellPeriod}}</p>
+            <p>Avg steepness: {{report.averageSteepness}}</p>
+            <p>Avg wave direction: {{report.averageWaveDirection}}</p>
+            <p>Avg swell direction: {{report.averageSwellDirection}}</p>
+            <p>Avg wind wave direction: {{report.averageWindWaveDirection}}</p>
+            <p>Avg wind speed: {{report.averageWindSpeed}}</p>
+            <p>Avg gust speed: {{report.averageGustSpeed}}</p>
+            <p>Avg wind wave height: {{report.averageWindWaveHeight}}</p>
+            <p>Avg wind wave period: {{report.averageWindWavePeriod}}</p>
+            <p>Avg water surface temp: {{report.averageSeaSurfaceTemperature}}</p>
+            <p>Avg dew point temperature: {{report.averageDewPointTemp}}</p>
+        </div>
     </div>
 
-    <div ng-repeat="report in multipleClosest">
+<div ng-repeat="report in multipleClosest">
         <h3>{{report.beachName}}</h3>
         <p>Avg significant wave height: {{report.averageSignificantWaveHeight}}</p>
         <p>Avg swell height: {{report.averageSwellHeight}}</p>

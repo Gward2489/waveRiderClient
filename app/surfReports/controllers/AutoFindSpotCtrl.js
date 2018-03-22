@@ -2,6 +2,7 @@ angular
 .module("WaveRiderApp")
 .controller("AutoFindSpotCtrl", function($scope, $location, SurfFactory, ReportFactory) {
 
+    $scope.spotCountOptions = [1, 2, 3, 4]
     $scope.singleClosest = []
     $scope.multipleClosest = []
     $scope.userLat = 0

@@ -48,8 +48,7 @@ angular
     }
 
     $scope.graphInts = function (propToGraph) {
-        $scope.valuesArray = []
-        $scope.graphData =[]
+        $scope.graphData = []
         $scope.report.forEach(r => {
             let intObj = {
                 "average": false,

@@ -9,21 +9,22 @@ angular.module('WaveRiderApp')
         template: '<div id="bar-graph"></div>',
         link: function(scope, element, attrs) {
             
-            
-            scope.$watchGroup('val', function(newValues, oldValues) {
-                
-                let d = newValues
-                
+            let svg = d3.select("#bar-graph")
+
+            scope.$watch('val', function(newValue, oldValue) {
+                svg.selectAll("*").remove();
+
                 let x = d3.scaleLinear()
                 .domain([0, d3.max(d3.values(scope.$parent.valuesArray))])
-                .range([0, 420])
+                .range([0, 600])
                 
-                let svg = d3.select("#bar-graph")
-                            .selectAll('div')
-                            .data(scope.$parent.graphData)
-                            .enter().append("div")
-                            .style("width", function(d) { return x(d.average) + "px"; })
-                            .text(function(d) { return d.day + "/" + d.month + " " + d.average; })
+                svg.selectAll('div')
+                    .data(scope.$parent.graphData)
+                    .enter().append("div")
+                    .style("width", function(d) { return x(d.average) + "px"; })
+                    .text(function(d) { return d.day + "/" + d.month + " " + d.average; })
+                
+
             }, true)
 
       }  

@@ -2,8 +2,7 @@
     <div>
         <h2><center>Welcome to Wave Rider</center></h4>
         <h5><center>Start typing the name of a beach or state, and then click the desired surf spot to retreive live ocean data</center></h4>
-
-            <center><input ng-keyup="filterBeachSearch(beachSearchInput)" ng-model="beachSearchInput"></center>
+        <center><input ng-keyup="filterBeachSearch(beachSearchInput)" ng-model="beachSearchInput"></center>
     </div>
 
     <div class="beachListContainer" ng-repeat="beach in filteredBeaches">
@@ -35,9 +34,11 @@
         </div>
     </div>
 
-    <div class="btn-group" role="group" ng-hide="hideGraphs">
-        <button type="button" class="btn btn-secondary" ng-repeat="o in graphingOptions" ng-click="graphInts(o)">{{o}}</button>
-    </div>
+    <center>
+        <div class="btn-group" role="group" ng-hide="hideGraphs">
+            <button type="button" class="btn btn-outline-secondary btn-small buttonRow" ng-repeat="o in graphingOptions" ng-click="graphInts(o)">{{o}}</button>
+        </div>
+    </center>
 
     <div ng-hide="hideGraphs" d3-Bars val="graphData" val="valuesArray" class="chart">
 
