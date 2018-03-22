@@ -203,22 +203,19 @@ angular
         },
         "compose45DayReport": {
             value: function (array) {
+                let dailyReports = [] 
 
-                for (let i = 0; array.length > i; i++)
-                {
-                    let dailyReports = []
+                array.forEach(br => {    
+                
                     let dailyData = []
 
-                    let currentDay = ""
-                    let currentMonth = ""
-
+                    
                     let makeDailySurfReportObj = function () {
-                        return Object.create (null, {
+                        return {
                             "beachName": false,
                             "day": false,
                             "month": false,
                             "averageWavePeriod": false,
-                            "averageDominantWavePeriod": false,
                             "averageSignificantWaveHeight": false,
                             "averageSteepness": false,
                             "averageSwellDirection": false,
@@ -228,33 +225,188 @@ angular
                             "averageWindWaveDirection": false,
                             "averageWindWaveHeight": false,
                             "averageWindWavePeriod": false,
-                            "averageDewPointTemp": false,
-                            "averageGustSpeed": false,
-                            "averageSeaSurfaceTemperature": false,
-                            "averageWindSpeed": false
+                        }
+                    }
+                    
+                    let wavePeriods = []
+                    let significantWaveHeights = []
+                    let steepnessReadings = []
+                    let swellDirections = []
+                    let swellHeights = []
+                    let swellPeriods = []
+                    let waveDirections = []
+                    let windWaveDirections = []
+                    let windWaveHeights = []
+                    let windWavePeriods = []
+                    
+                    let currentDay = ""
+                    let currentMonth = ""
+
+
+                    if (br.report.spectralReports !== null) {
+                        br.report.spectralReports.forEach(s => {
+                            
+                            if (currentDay === "") {
+                                currentDay = s.day
+                            }
+                            
+                            if (currentDay === s.day) {
+                                
+                                dailyData.push(s)
+                                
+                            } else if (currentDay !== s.day) {
+                                
+                                dailyData.forEach(d => { 
+                                    
+                                    if (d.averageWavePeriod !== "MM") {
+                                        wavePeriods.push(parseFloat(d.averageWavePeriod))
+                                    }
+                                    
+                                    if (d.significantWaveHeight !== "MM") {
+                                        significantWaveHeights.push(parseFloat(d.significantWaveHeight))
+                                    }
+
+                                    if (d.steepness !== "MM") {
+                                        steepnessReadings.push(d.steepness)
+                                    }
+
+                                    if (d.swellDirection !== "MM") {
+                                        swellDirections.push(d.swellDirection)
+                                    }
+
+                                    if (d.swellHeight !== "MM") {
+                                        swellHeights.push(parseFloat(d.swellHeight))
+                                    }
+
+                                    if (d.swellPeriod !== "MM") {
+                                        swellPeriods.push(parseFloat(d.swellPeriod))
+                                    }
+
+                                    if (d.waveDirection !== "MM") {
+                                        waveDirections.push(parseFloat(d.waveDirection))
+                                    }
+
+                                    if (d.windWaveDirection !== "MM") {
+                                        windWaveDirections.push(d.windWaveDirection)
+                                    }
+
+                                    if (d.windWaveHeight !== "MM") {
+                                        windWaveHeights.push(parseFloat(d.windWaveHeight))
+                                    }
+
+                                    if (d.windWavePeriod !== "MM") {
+                                        windWavePeriods.push(parseFloat(d.windWavePeriod))
+                                    }
+                                })
+
+                                let dailyR = makeDailySurfReportObj()
+
+                                if (wavePeriods.length > 1) {
+                                    dailyR.averageWavePeriod = this.getAverage(wavePeriods)
+                                } else {
+                                    dailyR.averageWavePeriod = wavePeriods[0]
+                                }
+
+                                if (significantWaveHeights.length > 1) {
+                                    dailyR.averageSignificantWaveHeight = this.getAverage(significantWaveHeights)
+                                } else {
+                                    dailyR.significantWaveHeight = significantWaveHeights[0]
+                                }
+
+                                if (steepnessReadings.length > 1) {
+                                    dailyR.averageSteepness = this.getAverageSteepness(steepnessReadings)
+                                } else {
+                                    dailyR.averageSteepness = steepnessReadings[0]
+                                }
+
+                                if (swellDirections.length > 1) {
+                                    dailyR.averageSwellDirection = this.getAverageDirection(swellDirections)
+                                } else {
+                                    dailyR.averageSwellDirection = swellDirections[0]
+                                }
+
+                                if (swellHeights.length > 1) {
+                                    dailyR.averageSwellHeight = this.getAverage(swellHeights)
+                                } else {
+                                    dailyR.averageSwellHeight = swellHeights[0]
+                                }
+
+                                if (swellPeriods.length > 1) {
+                                    dailyR.averageSwellPeriod = this.getAverage(swellPeriods)
+                                } else {
+                                    dailyR.averageSwellPeriod = swellPeriods[0]
+                                }
+
+                                if (waveDirections.length > 1) {
+
+                                    let degToCompass = function (num) {
+                                        let val = Math.floor((num / 22.5) + 0.5);
+                                        let arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+                                        return arr[(val % 16)];
+                                    }
+
+                                    let avgDirectionInt = this.getAverage(waveDirections)
+
+                                    dailyR.averageWaveDirection = degToCompass(avgDirectionInt)
+
+                                } else {
+
+                                    let degToCompass = function (num) {
+                                        let val = Math.floor((num / 22.5) + 0.5);
+                                        let arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+                                        return arr[(val % 16)];
+                                    }
+
+                                    dailyR.averageWaveDirection = degToCompass(waveDirections[0])
+                                }
+
+                                if (windWaveDirections.length > 1) {
+                                    dailyR.averageWindWaveDirection = this.getAverageDirection(windWaveDirections)
+                                } else {
+                                    dailyR.averageWindWaveDirection = windWaveDirections[0]
+                                }
+
+                                if (windWaveHeights.length > 1) {
+                                    dailyR.averageWindWaveHeight = this.getAverage(windWaveHeights)
+                                } else {
+                                    dailyR.averageWindWaveHeight = windWaveHeights[0]
+                                }
+
+                                if (windWavePeriods.length > 1) {
+                                    dailyR.averageWindWavePeriod = this.getAverage(windWavePeriods)
+                                } else {
+                                    dailyR.averageWindWavePeriod = windWavePeriods[0]
+                                }
+
+                                dailyR.day = currentDay
+                                dailyR.month = currentMonth
+                                dailyR.beachName = br.beach.beachName
+
+                                dailyReports.push(dailyR)
+
+                                wavePeriods = []
+                                significantWaveHeights = []
+                                steepnessReadings = []
+                                swellDirections = []
+                                swellHeights = []
+                                swellPeriods = []
+                                waveDirections = []
+                                windWaveDirections = []
+                                windWaveHeights = []
+                                windWavePeriods = []
+
+                                currentDay = s.day
+                            }
+                            
+                            if (s.month !== currentMonth) {
+                                currentMonth = s.month                            
+                            }
+
                         })
                     }
+                })
 
-                    
-                    [i].report.spectralReports.forEach(s => {
-                        
-                        if (s.day !== currentDay) {
-                            currentDay = s.day
-                        }
-
-                        if (s.month !== currentMonth) {
-                            currentMonth = s.month                            
-                        }
-
-                        if (currentDay === s.day && currentMonth === s.month) {
-                            dailyData.push(s)
-                        } else if (currentDay !== s.day && currentMonth === s.month) {
-                            for (let i = 0; dailyData.length > i; i++) {
-
-                            }
-                        }
-                    })
-                }
+                return dailyReports
             }
         },
         "getAverage": {
@@ -300,6 +452,25 @@ angular
                 array.forEach(x => {
                     steepnessString += x + ","
                 })
+
+                let steepnessReadings = ["VERY_STEEP", "STEEP", "AVERAGE", "SWELL", "VERY STEEP"]
+
+                let highcount = 0
+                let steepnessReading = ""
+                steepnessReadings.forEach(sr => {
+                let x = (steepnessString.split(sr).length - 1)       
+                    if (x > highcount) {
+                        highcount = x
+                        steepnessReading = sr
+                    }
+                })
+
+                if (steepnessReading === "VERY_STEEP") {
+                    let words = steepnessReading.split("_")
+                    steepnessReading = words[0] + " " + words[1]
+                }
+
+                return steepnessReading
             }
         }
     })

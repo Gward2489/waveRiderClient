@@ -51,6 +51,8 @@ angular
 
         SurfFactory.get45DayReportBySpotId($scope.searchedSpotId).then(results => {
             console.log(results)
+            let report = ReportFactory.compose45DayReport(results.data)
+            console.log(report)
         })
     }
 
