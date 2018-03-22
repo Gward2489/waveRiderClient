@@ -205,28 +205,29 @@ angular
             value: function (array) {
                 let dailyReports = [] 
 
+                let makeDailySurfReportObj = function () {
+                    return {
+                        "beachName": false,
+                        "day": false,
+                        "month": false,
+                        "averageWavePeriod": false,
+                        "averageSignificantWaveHeight": false,
+                        "averageSteepness": false,
+                        "averageSwellDirection": false,
+                        "averageSwellHeight": false,
+                        "averageSwellPeriod": false,
+                        "averageWaveDirection": false,
+                        "averageWindWaveDirection": false,
+                        "averageWindWaveHeight": false,
+                        "averageWindWavePeriod": false,
+                    }
+                }
+
                 array.forEach(br => {    
                 
                     let dailyData = []
 
                     
-                    let makeDailySurfReportObj = function () {
-                        return {
-                            "beachName": false,
-                            "day": false,
-                            "month": false,
-                            "averageWavePeriod": false,
-                            "averageSignificantWaveHeight": false,
-                            "averageSteepness": false,
-                            "averageSwellDirection": false,
-                            "averageSwellHeight": false,
-                            "averageSwellPeriod": false,
-                            "averageWaveDirection": false,
-                            "averageWindWaveDirection": false,
-                            "averageWindWaveHeight": false,
-                            "averageWindWavePeriod": false,
-                        }
-                    }
                     
                     let wavePeriods = []
                     let significantWaveHeights = []
@@ -406,11 +407,79 @@ angular
                     }
                 })
 
-                return dailyReports
+                let refinedDailyReports = []
+
+                monthCount = 0
+                currentMonth = ""
+
+                dailyReports.forEach(dr => {
+
+                    if (currentMonth !== dr.month) {
+                        currentMonth = dr.month
+                        monthCount ++
+                    }
+                    
+                    if (monthCount < 3) {
+                        
+                        let dailyR = makeDailySurfReportObj()
+                        
+                        dailyR.day = dr.day
+                        dailyR.month = dr.month
+                        dailyR.beachName = dr.beachName
+                        refinedDailyReports.push(dailyR)
+                    }
+                    
+                })
+
+                refinedDailyReports.forEach(rdr => {
+
+                    let wavePeriods = []
+                    let significantWaveHeights = []
+                    let steepnessReadings = []
+                    let swellDirections = []
+                    let swellHeights = []
+                    let swellPeriods = []
+                    let waveDirections = []
+                    let windWaveDirections = []
+                    let windWaveHeights = []
+                    let windWavePeriods = []
+
+                    dailyReports.forEach(dr => {
+                        if (rdr.day === dr.day && rdr.month === rdr.month) {
+                            wavePeriods.push(dr.averageWavePeriod)
+                            significantWaveHeights.push(dr.averageSignificantWaveHeight)
+                            steepnessReadings.push(dr.averageSteepness)
+                            swellDirections.push(dr.averageSwellDirection)
+                            swellHeights.push(dr.averageSwellHeight)
+                            swellPeriods.push(dr.averageSwellPeriod)
+                            waveDirections.push(dr.averageWaveDirection)
+                            windWaveDirections.push(dr.averageWindWaveDirection)
+                            windWaveHeights.push(dr.averageWindWaveHeight)
+                            windWavePeriods.push(dr.averageWindWavePeriod)
+                        }
+                    })
+
+                    rdr.averageWavePeriod = this.getAverage(wavePeriods)
+                    rdr.averageSignificantWaveHeight = this.getAverage(significantWaveHeights)
+                    rdr.averageSteepness = this.getAverageSteepness(steepnessReadings)
+                    rdr.averageSwellDirection = this.getAverageDirection(swellDirections)
+                    rdr.averageSwellHeight = this.getAverage(swellHeights)
+                    rdr.averageSwellPeriod = this.getAverage(swellPeriods)
+                    rdr.averageWaveDirection = this.getAverageDirection(waveDirections)
+                    rdr.averageWindWaveDirection = this.getAverageDirection(windWaveDirections)
+                    rdr.averageWindWaveHeight = this.getAverage(windWaveHeights)
+                    rdr.averageWindWavePeriod = this.getAverage(windWavePeriods)
+                })
+
+
+
+                return refinedDailyReports
             }
         },
         "getAverage": {
-            value: function (array) {
+            value: function (arrayOfNumbers) {
+
+                let array = arrayOfNumbers.map(a => parseFloat(a))
                 let divisor = array.length
                 
                 let dividend = array.reduce(function (accumulator, currentValue) {
