@@ -1,7 +1,11 @@
 angular
 .module("WaveRiderApp")
 .controller("AutoFindSpotCtrl", function($scope, $location, SurfFactory, ReportFactory) {
-
+    
+    $scope.valuesArray = []
+    $scope.hideGraphs = true
+    $scope.hideReportCard = true
+    $scope.graphData = []
     $scope.spotCountOptions = [1, 2, 3, 4]
     $scope.singleClosest = []
     $scope.multipleClosest = []
@@ -61,8 +65,55 @@ angular
         })
       }
 
+      $scope.graphInts = function (propToGraph) {
+        $scope.graphData = []
+        $scope.report.forEach(r => {
+            let intObj = {
+                "average": false,
+                "day": false,
+                "month": false
+            } 
+            for (p in r) {
+                if (p === propToGraph) {
+                    intObj.average = parseFloat(r[p])
+                    $scope.valuesArray.push(parseFloat(r[p]))
+                }
+                if (p === "day") {
+                    intObj.day = r[p]
+                }
+                if (p === "month") {
+                    intObj.month = r[p]
+                }
+            }
+            $scope.graphData.push(intObj)
+        })
+    }
+
       $scope.visualizeWaveData = function (beachName) {
-        
+        SurfFactory.beachCache.forEach(b => {
+          if (b.beachName === beachName) {
+            $scope.beachToSearch = b
+          }
+        })
+
+        SurfFactory.get45DayReportBySpotId($scope.beachName).then(results => {
+          $scope.report = ReportFactory.compose45DayReport(results.data)
+          
+          $scope.graphingOptions = []
+          for (prop in $scope.report[0]) {
+
+              
+              if ($scope.report[0][prop] !== "NaN" && prop !== "beachName" && prop !== "day" && prop !== "month" && prop !== "averageSteepness" && prop !== "averageSwellDirection" && prop !== "averageWaveDirection" && prop !== "averageWindWaveDirection") {
+                  $scope.graphingOptions.push(prop)
+              }
+          }
+
+          $scope.graphInts("averageSignificantWaveHeight")
+          $scope.hideReportCard = true
+          $scope.hideGraphs = false
+          console.log($scope.graphingOptions)
+
+        })
 
       }
 })
