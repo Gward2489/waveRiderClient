@@ -1,13 +1,22 @@
+body {
+  background-image: url("../img/fadedBarrel.jpg");
+  background-attachment:fixed;
+  background-size: cover;
+  
+}
+
+
 
 .chart div {
-    font: 10px sans-serif;
+    font: 1.4em sans-serif;
     background-color: steelblue;
     text-align: right;
-    padding: 3px;
+    padding-right:7px;
+    padding-top:3px;
     margin: 1px;
     color: white;
-  }
-
+    max-height: 35em;
+  } 
 
   .beachListContainer {
     margin-top: .3em;
@@ -22,8 +31,8 @@
     margin: 0 auto; /* Added */
     float: none; /* Added */
     margin-bottom: 10px; /* Added */
-    margin-top: 1em;
   }
+
 
   .buttonRow {
     margin-top: 1em;

@@ -82,11 +82,14 @@ angular
 
       $scope.graphInts = function (propToGraph) {
         $scope.graphData = []
+        $scope.valuesArray = []
+        
         $scope.report.forEach(r => {
             let intObj = {
                 "average": false,
                 "day": false,
-                "month": false
+                "month": false,
+                "dataType": propToGraph
             } 
             for (p in r) {
                 if (p === propToGraph) {

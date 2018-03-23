@@ -46,7 +46,9 @@ angular
             $scope.graphData = []
             $scope.valuesArray = []
             $scope.filteredBeaches = []
-            $scope.hideReportCard = false;
+            $scope.hideReportCard = false
+            $scope.hideGraphs = true
+            
         })
     }
 
@@ -58,7 +60,8 @@ angular
             let intObj = {
                 "average": false,
                 "day": false,
-                "month": false
+                "month": false,
+                "dataType": propToGraph
             } 
             for (p in r) {
                 if (p === propToGraph) {
