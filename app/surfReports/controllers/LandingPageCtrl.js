@@ -43,6 +43,8 @@ angular
             let report = ReportFactory.composeCurrentReport(results.data)
             console.log(report)
             $scope.currentBeachReport.push(report)
+            $scope.graphData = []
+            $scope.valuesArray = []
             $scope.filteredBeaches = []
             $scope.hideReportCard = false;
         })
@@ -50,6 +52,7 @@ angular
 
     $scope.graphInts = function (propToGraph) {
         $scope.graphData = []
+        $scope.valuesArray = []
         $scope.report.forEach(r => {
             let intObj = {
                 "average": false,

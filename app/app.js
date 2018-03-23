@@ -16,3 +16,9 @@ angular.module("WaveRiderApp").config(function ($routeProvider) {
         .otherwise("/landingPage")
 
 })
+
+angular.module("WaveRiderApp")
+    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.parentSelector = ".loading-bar-container";
+        cfpLoadingBarProvider.spinnerTemplate = "<div><span class='fa fa-spinner'>Preparing your report...</div>";
+      }])

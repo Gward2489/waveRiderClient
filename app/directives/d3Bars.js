@@ -11,7 +11,7 @@ angular.module('WaveRiderApp')
             
             let x = d3.scaleLinear()
                 .domain([0, d3.max(d3.values(scope.$parent.valuesArray))])
-                .range([0, 100])
+                .range([0, 600])
 
             let svg = d3.select("#bar-graph")
 
@@ -20,7 +20,7 @@ angular.module('WaveRiderApp')
 
                 x = d3.scaleLinear()
                 .domain([0, d3.max(d3.values(scope.$parent.valuesArray))])
-                .range([0, 100])
+                .range([0, 600])
                 
                 svg.selectAll('div')
                     .data(scope.$parent.graphData)
