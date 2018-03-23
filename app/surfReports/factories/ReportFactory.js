@@ -309,7 +309,7 @@ angular
                                 }
 
                                 if (significantWaveHeights.length > 1) {
-                                    dailyR.averageSignificantWaveHeight = this.getAverage(significantWaveHeights)
+                                    dailyR.averageSignificantWaveHeight = parseFloat(this.getAverage(significantWaveHeights))
                                 } else {
                                     dailyR.significantWaveHeight = significantWaveHeights[0]
                                 }

@@ -53,6 +53,7 @@ angular
     $scope.graphInts = function (propToGraph) {
         $scope.graphData = []
         $scope.valuesArray = []
+        let nanTrigger = false
         $scope.report.forEach(r => {
             let intObj = {
                 "average": false,
@@ -62,7 +63,7 @@ angular
             for (p in r) {
                 if (p === propToGraph) {
                     intObj.average = parseFloat(r[p])
-                    $scope.valuesArray.push(parseFloat(r[p]))
+                   $scope.valuesArray.push(parseFloat(r[p]))
                 }
                 if (p === "day") {
                     intObj.day = r[p]
@@ -71,7 +72,7 @@ angular
                     intObj.month = r[p]
                 }
             }
-            $scope.graphData.push(intObj)
+                $scope.graphData.push(intObj)
         })
     }
 
