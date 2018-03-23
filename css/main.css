@@ -32,3 +32,8 @@
   #loading-bar .bar {
     position: relative;
   }
+
+  .loading-bar-container {
+    margin-top:.5em;
+    margin-bottom: .3em;
+  }

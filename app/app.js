@@ -20,5 +20,5 @@ angular.module("WaveRiderApp").config(function ($routeProvider) {
 angular.module("WaveRiderApp")
     .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
         cfpLoadingBarProvider.parentSelector = ".loading-bar-container";
-        cfpLoadingBarProvider.spinnerTemplate = "<div><span class='fa fa-spinner'>Preparing your report...</div>";
+        cfpLoadingBarProvider.spinnerTemplate = "<div><span class='fa fa-spinner'><center>Preparing your report...</center></div>";
       }])
