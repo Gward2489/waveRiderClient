@@ -10,7 +10,7 @@ angular
         },
         "getAllSpots": {
             value: function () {
-                return $http.get("http://localhost:5000/api/SurfSpots")
+                return $http.get("https://api.waverider.garrettwarddev.com/api/SurfSpots")
                     .then(results =>{
                         this.beachCache = results.data
                     })
@@ -18,7 +18,7 @@ angular
         },
         "getReportByBeachId": {
             value: function (beachId) {
-                let url = "http://localhost:5000/api/CurrentSurfReport/" + beachId
+                let url = "https://api.waverider.garrettwarddev.com/api/CurrentSurfReport/" + beachId
                 return $http.get(url)
             }
         },
@@ -27,20 +27,20 @@ angular
                 let latString = userLat.toString()
                 let lonString = userLon.toString()
                 
-                let url = "http://localhost:5000/api/CurrentSurfReport/" + latString + "/" + lonString
+                let url = "https://api.waverider.garrettwarddev.com/api/CurrentSurfReport/" + latString + "/" + lonString
                 return $http.get(url)
             }
         },
         "getReportsByCoordsAndCount": {
             value: function (userLat, userLon, reportCount) {
-                let url = "http://localhost:5000/api/CurrentSurfReport/" + userLat + "/" + userLon +"/" + reportCount
+                let url = "https://api.waverider.garrettwarddev.com/api/CurrentSurfReport/" + userLat + "/" + userLon +"/" + reportCount
 
                 return $http.get(url)
             }
         },
         "get45DayReportBySpotId": {
             value: function (spotId) {
-                let url = "http://localhost:5000/api/FullSurfReport/" + spotId
+                let url = "https://api.waverider.garrettwarddev.com/api/FullSurfReport/" + spotId
 
                 return $http.get(url)
             }
