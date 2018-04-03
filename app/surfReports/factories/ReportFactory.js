@@ -1,3 +1,6 @@
+// This factory contains methods to take the data delivered by the waveRider Api
+// and convert it into objects of data that are easy to consume with angularJS
+
 angular
 .module("WaveRiderApp")
 .factory("ReportFactory", function () {
@@ -6,6 +9,8 @@ angular
         "composeCurrentReport": {
             value: function (resultsArray) {
 
+                // define an object that will be used to hold all the data needed
+                // for a surf report
                 let currentSurfReport = {
                     "beachName": false,
                     "averageWavePeriod": false,
@@ -25,6 +30,7 @@ angular
                     "averageWindSpeed": false
                 }
 
+                // define arrays that we can put surf data into and perform array methods on
                 let wavePeriods = []
                 let dominantWavePeriods = []
                 let significantWaveHeights = []
@@ -41,10 +47,17 @@ angular
                 let seaSurfaceTemps = []
                 let windSpeeds = []
                 
+                // itterate through the beach reports
                 resultsArray.forEach(br => {
 
+                    // since every beach report is will have the same beach title, set
+                    // the beachname
                     currentSurfReport.beachName = br.beach.beachName
 
+                    // check if report contains spectral data.
+                    // NOAA buoys insert 'MM' if no data is present for a given property
+                    // check to see if data is present for each property, and if so,
+                    // add it to the corresponding array
                     if (br.report.currentSpecReport !== null) {
                         
                         if (br.report.currentSpecReport.averageWavePeriod !== "MM") {
@@ -93,6 +106,7 @@ angular
 
                     }
 
+                    // perform the same logic for the standard reports
                     if (br.report.currentStandardReport !== null) {
 
                         if (br.report.currentStandardReport.dominantWavePeriod !== "MM") {
@@ -114,13 +128,11 @@ angular
                         if (br.report.currentStandardReport.windSpeed !== "MM") {
                             windSpeeds.push(br.report.currentStandardReport.windSpeed)
                         }
-
-
                     }
-                
-
                 })
 
+                // check if the arrays were pushed any data, if so, average the data and
+                // add the average value to the report object
                 if (wavePeriods.length > 0) {
                     currentSurfReport.averageWavePeriod = this.getAverage(wavePeriods.map(wp => parseFloat(wp)))
                 }
@@ -135,6 +147,7 @@ angular
                 
                 if (steepnessReadings.length > 0)
                 {
+                    // **need to refactor to use average steepness calculator
                     if (steepnessReadings[0].search("_") === -1) {
                         currentSurfReport.averageSteepness = steepnessReadings[0]
                     } else {
@@ -161,6 +174,7 @@ angular
                     
                    let waveDirectionAvg = this.getAverage(waveDirections.map(wd => parseFloat(wd)))
 
+                    // nugget from stack overflow to convert compass degree reding to direction    
                    let degToCompass = function (num) {
                         let val = Math.floor((num / 22.5) + 0.5);
                         let arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
@@ -201,6 +215,9 @@ angular
                 return currentSurfReport
             }
         },
+
+        // compose 45 day report follows same logic as compose current report
+
         "compose45DayReport": {
             value: function (array) {
                 let dailyReports = [] 
@@ -226,8 +243,6 @@ angular
                 array.forEach(br => {    
                 
                     let dailyData = []
-
-                    
                     
                     let wavePeriods = []
                     let significantWaveHeights = []
@@ -243,18 +258,24 @@ angular
                     let currentDay = ""
                     let currentMonth = ""
 
-
+                    // since the spectral reports will contains hundreds of entries,
+                    // itterate through them.
+                    // we also must complile reports by day, so that we may graph the 45
+                    // day data by day.
                     if (br.report.spectralReports !== null) {
                         br.report.spectralReports.forEach(s => {
-                            
+                            // set day to current day in report
                             if (currentDay === "") {
                                 currentDay = s.day
                             }
-                            
+                            // push report to daily dat array
                             if (currentDay === s.day) {
                                 
                                 dailyData.push(s)
-                                
+
+                            // when the day changes, itterate through the daily data
+                            // array, crunch the numbers, and then clear the daily data array
+                            // to make room the new days data  
                             } else if (currentDay !== s.day) {
                                 
                                 dailyData.forEach(d => { 
@@ -395,6 +416,7 @@ angular
                                 windWaveDirections = []
                                 windWaveHeights = []
                                 windWavePeriods = []
+                                dailyData = []
 
                                 currentDay = s.day
                             }
