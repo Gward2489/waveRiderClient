@@ -275,7 +275,7 @@ angular
 
                             // when the day changes, itterate through the daily data
                             // array, crunch the numbers, and then clear the daily data array
-                            // to make room the new days data  
+                            // along with the value arrays to make room the new days data  
                             } else if (currentDay !== s.day) {
                                 
                                 dailyData.forEach(d => { 
@@ -399,13 +399,13 @@ angular
                                 } else {
                                     dailyR.averageWindWavePeriod = windWavePeriods[0]
                                 }
-
+                                // set day month and name for daily report
                                 dailyR.day = currentDay
                                 dailyR.month = currentMonth
                                 dailyR.beachName = br.beach.beachName
-
+                                // add daily report to array
                                 dailyReports.push(dailyR)
-
+                                // clear values from arrays
                                 wavePeriods = []
                                 significantWaveHeights = []
                                 steepnessReadings = []
@@ -417,11 +417,12 @@ angular
                                 windWaveHeights = []
                                 windWavePeriods = []
                                 dailyData = []
-
+                                // set current day variable to new day
                                 currentDay = s.day
                             }
-                            
+                            // check if the month has changed
                             if (s.month !== currentMonth) {
+                                // change it if so
                                 currentMonth = s.month                            
                             }
 
@@ -429,18 +430,29 @@ angular
                     }
                 })
 
+                // at this point we have 45 report objects for every buoy queried, 
+                // all stored in a single array. We need to make a new array holding
+                // only 45 objects containing the average values from the buoys queried.
+
                 let refinedDailyReports = []
 
                 monthCount = 0
                 currentMonth = ""
 
+                // the purpose of this forEach method is to populate
+                // the refinedDailyReports array with one surf report object
+                // for each day in the report. The averaged data will be added after this 
+                // itteration
                 dailyReports.forEach(dr => {
 
+                    // track the month, and count for changes in month
                     if (currentMonth !== dr.month) {
                         currentMonth = dr.month
                         monthCount ++
                     }
                     
+                    // until the month changes for a third time, create objects
+                    // and add them to the refined reports array
                     if (monthCount < 3) {
                         
                         let dailyR = makeDailySurfReportObj()
@@ -453,8 +465,10 @@ angular
                     
                 })
 
+                // itterate through the array of 45 report objects 
                 refinedDailyReports.forEach(rdr => {
 
+                    // create arrays that will be used to calculate average values
                     let wavePeriods = []
                     let significantWaveHeights = []
                     let steepnessReadings = []
@@ -466,6 +480,9 @@ angular
                     let windWaveHeights = []
                     let windWavePeriods = []
 
+                    // itterate through the larger collection of daily reports look for matches
+                    // of month/day against the current refined report object. Add the values
+                    // from the matches to the values array
                     dailyReports.forEach(dr => {
                         if (rdr.day === dr.day && rdr.month === rdr.month) {
                             wavePeriods.push(dr.averageWavePeriod)
@@ -480,7 +497,7 @@ angular
                             windWavePeriods.push(dr.averageWindWavePeriod)
                         }
                     })
-
+                    // get averages, and add them to the current refined report
                     rdr.averageWavePeriod = this.getAverage(wavePeriods)
                     rdr.averageSignificantWaveHeight = this.getAverage(significantWaveHeights)
                     rdr.averageSteepness = this.getAverageSteepness(steepnessReadings)
@@ -492,12 +509,11 @@ angular
                     rdr.averageWindWaveHeight = this.getAverage(windWaveHeights)
                     rdr.averageWindWavePeriod = this.getAverage(windWavePeriods)
                 })
-
-
-
+                // return the array if refined report objects
                 return refinedDailyReports
             }
         },
+        // vanilla javascript function to get average values of an array
         "getAverage": {
             value: function (arrayOfNumbers) {
 
@@ -511,16 +527,22 @@ angular
                 return (dividend/divisor).toFixed(2)
             }
         },
+        // given an array of strings of compass directions ex: N or SSW, this function will
+        // return the most comman direction in the array
+
         "getAverageDirection": {
             value: function (array) {
-
+                // make a single string of directions seperated by commas
                 let directionString = ""
-
                 array.forEach(x => {
                     directionString += x + ","
                 })
+                // define an array of directions
                 let directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"]
 
+                // itterate over the array of directions. For each direction, use split
+                // to see how many occurances of the direction exist in the direction string.
+                // set the high count and common direction everytime a new highcount is set
                 let highcount = 0
                 let direction = ""
                 directions.forEach(d => {
@@ -530,11 +552,12 @@ angular
                         direction = d
                     }
                 })
-                
+
+                // return average direction
                 return direction
-                
             }
         },
+        // same logic as get average direction but for steepness readings from NOAA
         "getAverageSteepness": {
             value: function (array) {
 
@@ -556,6 +579,7 @@ angular
                     }
                 })
 
+                // remove underscore from if steepness reading is VERY_STEEP
                 if (steepnessReading === "VERY_STEEP") {
                     let words = steepnessReading.split("_")
                     steepnessReading = words[0] + " " + words[1]

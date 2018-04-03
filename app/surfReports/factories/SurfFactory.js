@@ -1,3 +1,6 @@
+// this factory contains the get request to the wave rider server. It also contains a 
+// cache to hold the list of waveRider supported beaches
+
 angular
 .module("WaveRiderApp")
 .factory("SurfFactory", function ($http) {
